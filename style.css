@@ -365,3 +365,47 @@
     transition: none;
   }
 }
+
+/* Shopee ordering option */
+.shopee-order {
+  margin: 30px auto 0;
+  padding-top: 25px;
+  border-top: 1px solid var(--line);
+  max-width: 380px;
+  text-align: center;
+}
+
+.contact .shopee-order p {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.shopee-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 14px 25px;
+  background: #ee4d2d;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 1.4;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.shopee-button:hover {
+  background: #d83e20;
+  transform: translateY(-2px);
+}
+
+.shopee-button strong {
+  font-weight: 600;
+}
+
+.shopee-icon {
+  width: 28px;
+  height: 32px;
+  flex-shrink: 0;
+}
