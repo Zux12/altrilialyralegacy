@@ -37,7 +37,7 @@
     reviews.length ? average.toFixed(1) : "—";
 
   section.querySelector(".review-count").textContent =
-    `${reviews.length} ${data.sample ? "contoh ulasan" : "ulasan"}`;
+    `${reviews.length} ${data.sample ? "Ulasan" : "ulasan"}`;
 
   function openReview(review, trigger) {
     lastTrigger = trigger;
