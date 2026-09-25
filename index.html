@@ -649,6 +649,261 @@
         transform: none;
       }
     }
+
+/* ===== Enhanced landing-page animations ===== */
+
+/* Moving gold tones across the main heading */
+.intro h1 em {
+  display: inline-block;
+  color: var(--gold);
+  background: linear-gradient(
+    110deg,
+    #745633 0%,
+    #a5824e 25%,
+    #755735 45%,
+    #b38b50 60%,
+    #745633 80%,
+    #a5824e 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: altrilia-gold-flow 7s linear infinite;
+}
+
+@keyframes altrilia-gold-flow {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+
+/* A gold line grows beneath the introduction */
+.intro::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 1px;
+  margin: 30px auto 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold),
+    transparent
+  );
+  transform-origin: center;
+  animation: altrilia-line-breathe 4s ease-in-out infinite;
+}
+
+@keyframes altrilia-line-breathe {
+  0%, 100% { transform: scaleX(.65); opacity: .45; }
+  50% { transform: scaleX(1.25); opacity: 1; }
+}
+
+/* Continuous invitation to scroll */
+.explore-link span {
+  animation: altrilia-arrow-bounce 2.8s ease-in-out infinite;
+}
+
+@keyframes altrilia-arrow-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* Each category image floats on its own rhythm.
+   Animate the image frame, preserving the card's reveal animation. */
+.category-visual {
+  animation: altrilia-image-float 6s ease-in-out infinite;
+  transition: box-shadow .5s ease;
+}
+
+.category:nth-child(2) .category-visual {
+  animation-delay: -1.5s;
+}
+
+.category:nth-child(3) .category-visual {
+  animation-delay: -3s;
+}
+
+.category:nth-child(4) .category-visual {
+  animation-delay: -4.5s;
+}
+
+@keyframes altrilia-image-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+
+.category:hover .category-visual,
+.category:focus-visible .category-visual {
+  animation-play-state: paused;
+  box-shadow: 0 18px 35px rgba(69, 48, 25, .16);
+}
+
+/* A light sweep passes over the selected image */
+.category-visual::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, .27) 50%,
+    transparent 70%
+  );
+  transform: translateX(-150%);
+}
+
+.category:hover .category-visual::before,
+.category:focus-visible .category-visual::before {
+  animation: altrilia-light-sweep 1.1s ease forwards;
+}
+
+@keyframes altrilia-light-sweep {
+  from { transform: translateX(-150%); }
+  to { transform: translateX(150%); }
+}
+
+/* Coming-soon badges glow gently */
+.category[data-coming] .category-status {
+  animation: altrilia-badge-glow 3.5s ease-in-out infinite;
+}
+
+@keyframes altrilia-badge-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(140, 112, 73, 0);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgba(250, 248, 244, .2);
+  }
+}
+
+/* Underline grows across a category on hover */
+.category-bottom {
+  position: relative;
+}
+
+.category-bottom::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .55s ease;
+}
+
+.category:hover .category-bottom::after,
+.category:focus-visible .category-bottom::after {
+  transform: scaleX(1);
+}
+
+/* Slight text movement */
+.category-title,
+.category-subtitle {
+  transition: transform .4s ease, color .4s ease;
+}
+
+.category:hover .category-title {
+  transform: translateX(4px);
+  color: var(--gold);
+}
+
+.category:hover .category-subtitle {
+  transform: translateX(4px);
+}
+
+/* Richer popup entrance */
+.coming-dialog[open] {
+  animation: altrilia-popup-enter .55s
+    cubic-bezier(.16, 1, .3, 1) both;
+}
+
+@keyframes altrilia-popup-enter {
+  from {
+    opacity: 0;
+    transform: translateY(35px) scale(.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.coming-dialog[open] .dialog-copy > * {
+  animation: altrilia-popup-copy .65s ease both;
+}
+
+.coming-dialog[open] .dialog-copy > :nth-child(1) {
+  animation-delay: .1s;
+}
+
+.coming-dialog[open] .dialog-copy > :nth-child(2) {
+  animation-delay: .18s;
+}
+
+.coming-dialog[open] .dialog-copy > :nth-child(3) {
+  animation-delay: .26s;
+}
+
+.coming-dialog[open] .dialog-copy > :nth-child(4) {
+  animation-delay: .34s;
+}
+
+.coming-dialog[open] .dialog-copy > :nth-child(5) {
+  animation-delay: .42s;
+}
+
+@keyframes altrilia-popup-copy {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Visitor-controlled motion toggle */
+.motion-toggle {
+  display: block;
+  margin: 20px auto 0;
+  padding: 8px 12px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* Pause continuous decorative motion */
+body.motion-paused *,
+body.motion-paused *::before,
+body.motion-paused *::after {
+  animation-play-state: paused !important;
+}
+
+/* Keep popup content visible even while animation is paused */
+body.motion-paused .coming-dialog[open],
+body.motion-paused .coming-dialog[open] .dialog-copy > * {
+  animation: none !important;
+}
+
+/* Respect device accessibility settings */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .motion-toggle {
+    display: none;
+  }
+}
+    
   </style>
 </head>
 
@@ -694,6 +949,16 @@
         Jelajahi dunia Altrilia
         <span aria-hidden="true">↓</span>
       </a>
+
+      <button
+  type="button"
+  class="motion-toggle"
+  id="motion-toggle"
+  aria-pressed="false"
+  hidden
+>
+  Jeda animasi
+</button>
     </section>
 
     <section class="worlds" id="pilihan" aria-labelledby="worlds-title">
@@ -801,8 +1066,8 @@
         >
           <span class="category-visual">
             <img
-              src="assets/photovideo/altrilia%20plate%20gold.png"
-              alt="Identitas emas Altrilia di atas kain satin"
+              src="assets/photovideo/handbag.png"
+              alt="Tas dan aksesori wanita Altrilia"
               width="1086"
               height="1448"
             >
@@ -955,8 +1220,8 @@
 
       aksesori: {
         name: "Altrilia • Aksesori Wanita",
-        image: "assets/photovideo/altrilia%20plate%20gold.png",
-        alt: "Detail identitas emas Altrilia",
+image: "assets/photovideo/handbag.png",
+alt: "Tas dan aksesori wanita Altrilia",
         description:
           "Sentuhan pelengkap untuk gaya personal Anda sedang kami siapkan. " +
           "Koleksi aksesori wanita belum tersedia saat ini. " +
@@ -1024,6 +1289,21 @@
         previousFocus.focus({ preventScroll: true });
       }
     });
+
+// Allow visitors to pause the continuous decorative animations.
+const motionToggle = document.getElementById("motion-toggle");
+
+motionToggle.hidden = false;
+
+motionToggle.addEventListener("click", () => {
+  const paused = document.body.classList.toggle("motion-paused");
+
+  motionToggle.setAttribute("aria-pressed", String(paused));
+  motionToggle.textContent = paused
+    ? "Lanjutkan animasi"
+    : "Jeda animasi";
+});
+    
   </script>
 </body>
 </html>
