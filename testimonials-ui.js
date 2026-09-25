@@ -121,6 +121,7 @@
   let touching = false;
   let direction = 1;
   let previousTime = 0;
+  let scrollRemainder = 0;
   let manualPauseUntil = 0;
 
   function updateMotionButton() {
@@ -174,7 +175,14 @@
       if (track.scrollLeft >= limit - 1) direction = -1;
       if (track.scrollLeft <= 0) direction = 1;
 
-      track.scrollLeft += direction * elapsed * 0.025;
+      scrollRemainder += elapsed * 0.04;
+
+const pixels = Math.floor(scrollRemainder);
+
+if (pixels >= 1) {
+  track.scrollLeft += direction * pixels;
+  scrollRemainder -= pixels;
+}
     }
 
     requestAnimationFrame(animate);
